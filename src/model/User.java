@@ -27,49 +27,49 @@ public class User {
 	private String name;
 	
 	@Column
-	private String sureName;
+	private String surname;
 	
-	@Column
-	private Date createDate;
+	@Column(name = "created_at")
+	private Date createdAt;
 	
-	@OneToMany //This especifies that for every instance os this class we hav emany of the other
+	@OneToMany //This specifies that for every instance of this class we have many of the other
     @JoinColumn(name = "user_id")
-	private List<Nota> notas;
+	private List<Mark> marks;
 	
-	@OneToOne //This especifies that has an agregation of another class (table)
-	@JoinColumn(name = "nota_media")
-	private Nota notaMedia;
+	@OneToOne //This specifies that has an aggregation of another class (table)
+	@JoinColumn(name = "mark_average")
+	private Mark markAverage;
 	
 	//Empty constructor is needed
 	public User(){} 
 	 
 	public User(String name, String sureName) {
 		this.name = name;
-		this.sureName = sureName;
-		this.createDate = new Date();
-		this.notas = new ArrayList<>();
+		this.surname = sureName;
+		this.createdAt = new Date();
+		this.marks = new ArrayList<>();
 	}
 	
-	public void setSureName(String sureName) {
-		this.sureName = sureName;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
-	public void setNotaMedia(Nota notaMedia) {
-		this.notaMedia = notaMedia;
+	public void setMarkAverage(Mark markAverage) {
+		this.markAverage = markAverage;
 	}
 	
-	public List<Nota> getNotas() {
-		return this.notas;
+	public List<Mark> getMarks() {
+		return this.marks;
 	}
 	
-	public Nota getNotaMedia() {
-		return this.notaMedia;
+	public Mark getMarkAverage() {
+		return this.markAverage;
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", sureName=" + sureName
-				+ ", createDate=" + createDate + ", notas=" + notas + ", notas=" + notaMedia + "]";
+		return "User [id=" + id + ", name=" + name + ", surename=" + surname
+				+ ", created_at=" + createdAt + ", marks=" + marks + ", average=" + markAverage + "]";
 	}
 
 }

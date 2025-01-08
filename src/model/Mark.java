@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity  //Specifies that this corresponts to a Database table.
-@Table(name= "Nota") //Specifies the tributes of the table or de schema if needed
-public class Nota {
+@Table(name= "Mark") //Specifies the tributes of the table or schema if needed
+public class Mark {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) //with this tag we make the id auto_increment
@@ -17,23 +17,23 @@ public class Nota {
 	private int id;										 //name specify the column name on the Database
 														 //unique = true/false specifies if there is a unique constraint
 	@Column												 //nullable = treu/false specifies that the values can be null or not
-	private int qualificacion;
+	private int number;
 	
 	@Column
-	private String abreviatura;
+	private String letter;
 	
 	//Empty constructor is needed
-	public Nota(){} 
+	public Mark(){} 
 	 
-	public Nota(int qualificacion, String abreviatura) {
-		this.qualificacion = qualificacion;
-		this.abreviatura = abreviatura;
+	public Mark(int number, String letter) {
+		this.number = number;
+		this.letter = letter;
 	}
 
 	@Override
 	public String toString() {
-		return "Nota [id=" + id + ", qualificacion=" + qualificacion
-				+ ", abreviatura=" + abreviatura + "]";
+		return "Mark [id=" + id + ", number=" + number
+				+ ", letter=" + letter + "]";
 	}
 	
 }

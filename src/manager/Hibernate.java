@@ -9,7 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
-import model.Nota;
+import model.Mark;
 import model.User;
 
 public class Hibernate {
@@ -27,8 +27,8 @@ public class Hibernate {
 
 		// Manual Queries
 		ArrayList<User> users = getAllExample();
-		oneToOneExample(user); // check User "notaMedia" attribute
-		oneToManyExample(user); // check User "notas" ArrayList
+		oneToOneExample(user); // check User "markAverage" attribute
+		oneToManyExample(user); // check User "marks" ArrayList
 
 		endSession();
 	}
@@ -81,7 +81,7 @@ public class Hibernate {
 			System.out.println(user.toString());
 
 			tx.commit();
-			System.out.println("Saved Successfully.");
+			System.out.println("Saved Successfully." + user.toString());
 
 			return user;
 
@@ -97,7 +97,7 @@ public class Hibernate {
 	// Update a User value and save it to the database
 	private void updateExample(User user) {
 		// We change some info from the user
-		user.setSureName("Guitierrez");
+		user.setSurname("Gutierrez");
 
 		try {
 			tx = session.beginTransaction();
@@ -159,17 +159,17 @@ public class Hibernate {
 	}
 
 	private void oneToOneExample(User user) {
-		// we generate a new Nota element to asign to the User notaMedia field.
-		Nota notaMedia = new Nota(3, "I");
+		// we generate a new Mark element to assign to the User markAverage field.
+		Mark markAverage = new Mark(3, "I");
 
 		// we add this element to the user
-		user.setNotaMedia(notaMedia);
+		user.setMarkAverage(markAverage);
 
 		try {
 			tx = session.beginTransaction();
 			
-			//we save the Nota object on database
-			session.save(notaMedia);
+			//we save the mark averag object on database
+			session.save(markAverage);
 
 			// we update this information in the Database
 			session.save(user);
@@ -184,20 +184,20 @@ public class Hibernate {
 	}
 
 	private void oneToManyExample(User user) {
-		List<Nota> notas = user.getNotas();
-		int[] qualificaciones = {4, 7, 9};
-		String[] abreviaturas = {"I","B","E"};
+		List<Mark> marks = user.getMarks();
+		int[] numbers = {4, 7, 9};
+		String[] letters = {"I","B","E"};
 
 		try {
 			tx = session.beginTransaction();
 
-			//we generate and save all new Nota elements
+			//we generate and save all new Mark elements
 			for (int i = 0; i < 3; i ++) {
-				Nota nota = new Nota(qualificaciones[i], abreviaturas[i]);
-				session.save(nota);
+				Mark mark = new Mark(numbers[i], letters[i]);
+				session.save(mark);
 				
-				//we add te Nota element to the arrayList of the user
-				notas.add(nota);
+				//we add the mark element to the arrayList of the user
+				marks.add(mark);
 			}
 			
 			// we update this information in the Database
