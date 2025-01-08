@@ -20,15 +20,15 @@ public class Hibernate {
 		initSession();
 
 		// CRUD
-		int id = insertExample();
-		User user = getExample(id);
-		updateExample(user);
-		deleteExample(user);
+		int id = insertUser();
+		User user = getUser(id);
+		updateUser(user);
+		deleteUser(user);
 
 		// Manual Queries
 		ArrayList<User> users = getAllExample();
-		oneToOneExample(user); // check User "markAverage" attribute
-		oneToManyExample(user); // check User "marks" ArrayList
+		addMarkAverage(user); // oneToOneExample , check User "markAverage" attribute
+		addMarks(user); // oneToManyExample, check User "marks" ArrayList
 
 		endSession();
 	}
@@ -43,7 +43,7 @@ public class Hibernate {
     	session = sessionFactory.openSession();		
 	}
 
-	private int insertExample() {
+	private int insertUser() {
 		// We create a user to save in the Database
 		User user = new User("Maria", "Fernandez");
 
@@ -70,7 +70,7 @@ public class Hibernate {
 		return 0;
 	}
 
-	private User getExample(int id) {
+	private User getUser(int id) {
 		try {
 			tx = session.beginTransaction();
 			
@@ -95,7 +95,7 @@ public class Hibernate {
 	}
 
 	// Update a User value and save it to the database
-	private void updateExample(User user) {
+	private void updateUser(User user) {
 		// We change some info from the user
 		user.setSurname("Gutierrez");
 
@@ -113,7 +113,7 @@ public class Hibernate {
 	}
 
 	// deletes a user from the Database
-	private void deleteExample(User user) {
+	private void deleteUser(User user) {
 		try {
 			tx = session.beginTransaction();
 			session.remove(user);
@@ -158,7 +158,7 @@ public class Hibernate {
 		return users;
 	}
 
-	private void oneToOneExample(User user) {
+	private void addMarkAverage(User user) {
 		// we generate a new Mark element to assign to the User markAverage field.
 		Mark markAverage = new Mark(3, "I");
 
@@ -168,7 +168,7 @@ public class Hibernate {
 		try {
 			tx = session.beginTransaction();
 			
-			//we save the mark averag object on database
+			//we save the mark average object on database
 			session.save(markAverage);
 
 			// we update this information in the Database
@@ -183,7 +183,7 @@ public class Hibernate {
 		}
 	}
 
-	private void oneToManyExample(User user) {
+	private void addMarks(User user) {
 		List<Mark> marks = user.getMarks();
 		int[] numbers = {4, 7, 9};
 		String[] letters = {"I","B","E"};
