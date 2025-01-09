@@ -26,9 +26,9 @@ public class Hibernate {
 		deleteUser(user);
 
 		// Manual Queries
-		ArrayList<User> users = getAllExample();
+		ArrayList<User> users = getAllUsers();
 		addMarkAverage(user); // oneToOneExample , check User "markAverage" attribute
-		addMarks(user); // oneToManyExample, check User "marks" ArrayList
+		addMarks(user);       // oneToManyExample, check User "marks" ArrayList
 
 		endSession();
 	}
@@ -127,7 +127,7 @@ public class Hibernate {
 		}
 	}
 
-	private ArrayList<User> getAllExample() {
+	private ArrayList<User> getAllUsers() {
 		ArrayList<User> users = new ArrayList<>();
 
 		try {
